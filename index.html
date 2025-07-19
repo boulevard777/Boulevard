@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+ <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -42,7 +42,7 @@
             transition: background-color 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
         }
         h2, h3 {
-            color: #2c3e50; /* Cor de cabeçalho mais escura */
+            color: #2c3e50; /* Cor de cabeçalho más escura */
             border-bottom: 2px solid #ecf0f1;
             padding-bottom: 0.75rem;
             margin-bottom: 1.5rem;
@@ -69,7 +69,7 @@
             transition: background-color 0.3s ease, transform 0.2s ease;
         }
         button:hover {
-            background-color: #218838; /* Verde mais escuro no hover */
+            background-color: #218838; /* Verde más escuro no hover */
             transform: translateY(-1px);
         }
         .table {
@@ -312,7 +312,7 @@
             margin-left: 0.5rem; /* Espaço entre o texto e o botão */
         }
         .add-product-list-btn:hover {
-            background-color: #4b0082; /* Roxo mais escuro no hover */
+            background-color: #4b0082; /* Roxo más escuro no hover */
         }
 
         /* Novo Modal de Confirmação */
@@ -559,17 +559,17 @@
         /* Novas regras para a lista de resultados da busca de produtos */
         body.dark-mode #order-product-results {
             background-color: #2d3748; /* Fundo escuro para a lista de resultados */
-            border-color: #4a5568; /* Borda mais escura */
+            border-color: #4a5568; /* Borda más escura */
         }
         body.dark-mode .order-product-result-item {
             color: #e2e8f0; /* Texto claro para os itens */
-            border-color: #4a5568; /* Borda mais escura entre os itens */
+            border-color: #4a5568; /* Borda más escura entre os itens */
         }
         body.dark-mode .order-product-result-item span {
             color: #e2e8f0; /* Garante que o span interno também seja claro */
         }
         body.dark-mode .order-product-result-item:hover {
-            background-color: #4a5568; /* Fundo de hover mais escuro */
+            background-color: #4a5568; /* Fundo de hover más escuro */
         }
 
         /* Estilos para o texto "Comanda da Mesa" e número da mesa no modo escuro */
@@ -577,19 +577,19 @@
             color: #9ae6b4; /* Um verde claro para o título no modo escuro */
         }
         body.dark-mode #current-order #current-table-number {
-            color: #63b3ed; /* Um azul mais claro para o número da mesa no modo escuro */
+            color: #63b3ed; /* Um azul más claro para o número da mesa no modo escuro */
         }
 
         /* Estilos para o relatório de vendas no modo escuro */
         body.dark-mode .sale-entry {
-            background-color: #4a5568; /* Fundo mais escuro para cada entrada de venda */
+            background-color: #4a5568; /* Fundo más escuro para cada entrada de venda */
             border-color: #636b6f;
         }
         body.dark-mode .sale-entry h4 {
             color: #e2e8f0; /* Título da venda claro */
         }
         body.dark-mode .sale-entry h4 span {
-            color: #a0aec0; /* Data/hora da venda mais clara */
+            color: #a0aec0; /* Data/hora da venda más clara */
         }
         body.dark-mode .sale-entry ul li {
             color: #e2e8f0; /* Itens da lista de vendas claros */
@@ -601,14 +601,20 @@
             color: #9ae6b4; /* Verde claro para o total da venda */
         }
         body.dark-mode .sales-report-content p.text-gray-500 { /* "Nenhuma venda registrada ainda." */
-            color: #a0aec0; /* Cinza mais claro para mensagens de vazio */
+            color: #a0aec0; /* Cinza más claro para mensagens de vazio */
         }
         body.dark-mode .sales-report-content h3.text-blue-800 { /* Total Geral de Vendas */
             color: #63b3ed; /* Azul claro para o total geral */
         }
         /* Estilos para a mensagem de comanda vazia no modo escuro */
         body.dark-mode #empty-order-message {
-            color: #a0aec0; /* Cor mais clara para a mensagem de comanda vazia */
+            color: #a0aec0; /* Cor más clara para a mensagem de comanda vazia */
+        }
+        /* Estilos para o input de seleção de codificação no modo escuro */
+        body.dark-mode #csv-encoding-select {
+            background-color: #4a5568;
+            border-color: #636b6f;
+            color: #e2e8f0;
         }
     </style>
 </head>
@@ -751,6 +757,13 @@
                 </p>
                 <div class="flex flex-col sm:flex-row items-end space-y-3 sm:space-y-0 sm:space-x-3">
                     <input type="file" id="csv-file-input" accept=".csv" class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 focus:outline-none">
+                    <div class="flex flex-col w-full sm:w-auto">
+                        <label for="csv-encoding-select" class="block text-gray-700 text-sm font-bold mb-2">Codificação do CSV:</label>
+                        <select id="csv-encoding-select" class="shadow appearance-none border rounded-lg w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline text-sm sm:text-base">
+                            <option value="UTF-8">UTF-8</option>
+                            <option value="ISO-8859-1">ISO-8859-1 (Latin-1)</option>
+                        </select>
+                    </div>
                     <button id="import-csv-btn" class="bg-green-600 hover:bg-green-700 text-white font-bold py-2 px-4 rounded-lg transition duration-300 w-full sm:w-auto text-sm sm:text-base">Importar do CSV</button>
                 </div>
             </div>
@@ -879,6 +892,7 @@
             const newTableNameInput = document.getElementById('new-table-name');
 
             const csvFileInput = document.getElementById('csv-file-input');
+            const csvEncodingSelect = document.getElementById('csv-encoding-select'); // Novo elemento
             const importCsvBtn = document.getElementById('import-csv-btn');
 
             const addNewTableBtn = document.getElementById('add-new-table-btn');
@@ -904,6 +918,10 @@
 
 
             // --- Funções Auxiliares (locais ao DOMContentLoaded) ---
+            /**
+             * Exibe uma mensagem na caixa de mensagens do aplicativo.
+             * @param {string} message - A mensagem a ser exibida.
+             */
             function showMessage(message) {
                 messageText.textContent = message;
                 messageBox.style.display = 'block';
@@ -911,6 +929,11 @@
 
             let onConfirmCallback = null;
 
+            /**
+             * Exibe um modal de confirmação com uma mensagem e um callback.
+             * @param {string} message - A mensagem de confirmação.
+             * @param {function(boolean): void} callback - A função a ser chamada com `true` se confirmado, `false` se cancelado.
+             */
             function showConfirmationModal(message, callback) {
                 confirmationModal.style.display = 'flex'; // Usar flex para centralizar
                 confirmationText.textContent = message;
@@ -945,7 +968,10 @@
             // totalTablesCount agora representa o MAIOR ID de mesa já usado/existente
             let totalTablesCount = parseInt(localStorage.getItem('totalTablesCount')) || INITIAL_TABLES_COUNT;
 
-            // Garante que as mesas iniciais estejam presentes e inicializadas
+            /**
+             * Inicializa os dados das mesas, garantindo que as mesas iniciais existam
+             * e que os dados de nomes personalizados e pedidos estejam consistentes.
+             */
             function initializeTablesData() {
                 let changed = false;
                 // Certifica-se de que customTableNames e tableOrders tenham entradas para as mesas existentes
@@ -980,6 +1006,10 @@
             }
 
 
+            /**
+             * Exibe a seção do aplicativo correspondente ao ID fornecido e atualiza a navegação.
+             * @param {string} sectionId - O ID da seção a ser exibida (ex: 'comanda', 'cadastro', 'relatorio').
+             */
             function showSection(sectionId) {
                 // Esconde todas as seções
                 contentSections.forEach(section => {
@@ -1022,8 +1052,10 @@
             showSection('comanda');
 
 
-            // Renderiza produtos na lista e dropdown de seleção
-            // Recebe um array opcional 'displayProducts' para filtrar o que é mostrado na lista
+            /**
+             * Renderiza a lista de produtos na seção de cadastro.
+             * @param {Array<Object>} [displayProducts=products] - Array de produtos a serem exibidos (opcional, padrão para todos os produtos).
+             */
             function renderProducts(displayProducts = products) {
                 productList.innerHTML = '';
 
@@ -1063,7 +1095,10 @@
                 });
             }
 
-            // Função para lidar com a remoção de produtos
+            /**
+             * Remove um produto da lista de produtos.
+             * @param {string} productId - O ID do produto a ser removido.
+             */
             function removeProduct(productId) {
                 const indexToRemove = products.findIndex(p => p.id === productId);
                 if (indexToRemove !== -1) {
@@ -1076,7 +1111,10 @@
             }
 
 
-            // Função para preencher o modal de edição e mostrá-lo
+            /**
+             * Preenche o modal de edição de produto com os dados do produto selecionado.
+             * @param {string} productId - O ID do produto a ser editado.
+             */
             function editProduct(productId) {
                 const productToEdit = products.find(p => p.id === productId);
                 if (productToEdit) {
@@ -1096,7 +1134,7 @@
                 if (productName && !isNaN(productPrice) && productPrice > 0) {
                     const newProduct = {
                         id: Date.now().toString(), // ID único para o produto
-                        name: productName,
+                        name: productName.normalize('NFC'), // Normaliza o nome ao cadastrar
                         price: productPrice
                     };
                     products.push(newProduct);
@@ -1120,7 +1158,7 @@
                 if (newName && !isNaN(newPrice) && newPrice > 0) {
                     const productIndex = products.findIndex(p => p.id === productId);
                     if (productIndex !== -1) {
-                        products[productIndex].name = newName;
+                        products[productIndex].name = newName.normalize('NFC'); // Normaliza o nome ao editar
                         products[productIndex].price = newPrice;
                         localStorage.setItem('comandaProducts', JSON.stringify(products));
                         renderProducts(); // Re-renderiza todos os produtos
@@ -1134,15 +1172,17 @@
 
             // Listener de evento para o input de busca de produtos
             productSearchInput.addEventListener('input', (e) => {
-                const searchTerm = e.target.value.toLowerCase();
+                const searchTerm = e.target.value.toLowerCase().normalize('NFC'); // Normaliza o termo de busca
                 const filteredProducts = products.filter(product =>
-                    product.name.toLowerCase().includes(searchTerm)
+                    product.name.toLowerCase().normalize('NFC').includes(searchTerm) // Normaliza o nome do produto para comparação
                 );
                 renderProducts(filteredProducts); // Renderiza apenas produtos filtrados
             });
 
             // --- Gerenciamento de Mesas e Comandas ---
-            // Renderiza elementos da mesa e define o estado inicial
+            /**
+             * Renderiza os elementos das mesas no contêiner de mesas e define o estado inicial.
+             */
             function renderTables() {
                 tablesContainer.innerHTML = ''; // Limpa as mesas existentes
                 // Itera até o maior ID de mesa registrado
@@ -1206,7 +1246,10 @@
                 localStorage.setItem('totalTablesCount', totalTablesCount.toString());
             }
 
-            // Função para remover uma mesa
+            /**
+             * Remove uma mesa do sistema.
+             * @param {string} tableId - O ID da mesa a ser removida.
+             */
             function removeTable(tableId) {
                 // Remove a mesa dos dados
                 delete customTableNames[tableId];
@@ -1230,7 +1273,10 @@
             }
 
 
-            // Seleciona uma nova mesa, atualiza a UI e carrega/cria a comanda
+            /**
+             * Seleciona uma nova mesa, atualiza a UI e carrega/cria a comanda para ela.
+             * @param {string} tableId - O ID da mesa a ser selecionada.
+             */
             function selectNewTable(tableId) {
                 // Desseleciona a mesa anterior, se houver
                 if (activeTableId) {
@@ -1272,7 +1318,10 @@
                 resetPaymentInputs(); // Reseta os campos de pagamento ao selecionar uma nova mesa
             }
 
-            // Função para abrir o modal de edição de nome da mesa
+            /**
+             * Abre o modal de edição do nome da mesa.
+             * @param {string} tableId - O ID da mesa cujo nome será editado.
+             */
             function openEditTableNameModal(tableId) {
                 editTableIdInput.value = tableId;
                 newTableNameInput.value = customTableNames[tableId] || document.getElementById(tableId).querySelector('span').textContent;
@@ -1319,7 +1368,9 @@
             });
 
 
-            // Renderiza os itens e o total da comanda da mesa atualmente ativa
+            /**
+             * Renderiza os itens e o total da comanda da mesa atualmente ativa.
+             */
             function renderCurrentOrder() {
                 orderItemsList.innerHTML = ''; // Limpa os itens anteriores
                 let total = 0;
@@ -1362,19 +1413,24 @@
                 });
             }
 
-            // Função para adicionar um produto à comanda atual diretamente de um objeto de produto
+            /**
+             * Adiciona um produto à comanda da mesa atualmente ativa.
+             * @param {Object} product - O objeto produto a ser adicionado.
+             */
             function addProductToCurrentOrder(product) {
                 if (!activeTableId) {
                     showMessage('Por favor, selecione uma mesa primeiro.');
                     return;
                 }
                 const order = tableOrders[activeTableId];
+                // Normaliza o nome do produto para a comparação
                 const existingItem = order.items.find(item => item.id === product.id);
 
                 if (existingItem) {
                     existingItem.quantity++;
                 } else {
-                    order.items.push({ ...product, quantity: 1 });
+                    // Garante que o nome do produto adicionado à comanda também seja normalizado
+                    order.items.push({ ...product, name: product.name.normalize('NFC'), quantity: 1 });
                 }
                 localStorage.setItem('comandaTableOrders', JSON.stringify(tableOrders));
                 renderCurrentOrder();
@@ -1384,7 +1440,11 @@
                 orderProductResultsList.classList.add('hidden'); // Esconde a lista de resultados
             }
 
-            // Atualiza a quantidade de um item na comanda atual
+            /**
+             * Atualiza a quantidade de um item na comanda atual.
+             * @param {number} index - O índice do item na lista de itens da comanda.
+             * @param {number} change - A mudança na quantidade (ex: 1 para incrementar, -1 para decrementar).
+             */
             function updateOrderItemQuantity(index, change) {
                 const order = tableOrders[activeTableId];
                 if (order && order.items[index]) {
@@ -1399,7 +1459,9 @@
 
             // --- Lógica de Pagamento ---
 
-            // Renderiza os métodos de pagamento ativos
+            /**
+             * Renderiza os métodos de pagamento ativos na UI.
+             */
             function renderActivePaymentMethods() {
                 activePaymentMethodsList.innerHTML = ''; // Limpa a lista
                 let hasActiveMethods = false;
@@ -1454,7 +1516,10 @@
                 updatePaymentSummary(); // Garante que o resumo seja atualizado após renderizar
             }
 
-            // Adiciona um método de pagamento à lista ativa
+            /**
+             * Adiciona um método de pagamento à lista de métodos ativos para a comanda atual.
+             * @param {string} methodKey - A chave do método de pagamento (ex: 'cash', 'pix').
+             */
             function addPaymentMethod(methodKey) {
                 if (currentActivePaymentMethods[methodKey] === undefined) { // Verifica se o método ainda não foi adicionado
                     currentActivePaymentMethods[methodKey] = 0; // Inicializa com 0
@@ -1472,6 +1537,9 @@
             document.getElementById('add-debit-btn').addEventListener('click', () => addPaymentMethod('debit'));
 
 
+            /**
+             * Atualiza o resumo de pagamento (total pago e troco) na UI.
+             */
             function updatePaymentSummary() {
                 const totalComanda = parseFloat(orderTotalSpan.textContent);
                 let totalPaid = 0;
@@ -1515,6 +1583,9 @@
                 }
             }
 
+            /**
+             * Reseta todos os campos e valores relacionados aos métodos de pagamento.
+             */
             function resetPaymentInputs() {
                 currentActivePaymentMethods = {}; // Limpa todos os métodos ativos
                 renderActivePaymentMethods(); // Re-renderiza a lista para ficar vazia (e redefine data-user-edited para false)
@@ -1604,13 +1675,13 @@
             });
 
             orderProductSearchInput.addEventListener('input', () => {
-                const searchTerm = orderProductSearchInput.value.toLowerCase().trim();
+                const searchTerm = orderProductSearchInput.value.toLowerCase().normalize('NFC'); // Normaliza o termo de busca
                 orderProductResultsList.innerHTML = ''; // Limpa os resultados anteriores
 
                 if (searchTerm.length > 0) {
                     // Modificação aqui: Usar includes() para busca dinâmica
                     const filteredProducts = products.filter(product =>
-                        product.name.toLowerCase().includes(searchTerm)
+                        product.name.toLowerCase().normalize('NFC').includes(searchTerm) // Normaliza o nome do produto para comparação
                     );
                     displayOrderProducts(filteredProducts);
                 } else {
@@ -1619,6 +1690,10 @@
                 }
             });
 
+            /**
+             * Exibe a lista de produtos para seleção na comanda.
+             * @param {Array<Object>} productsToDisplay - Array de produtos a serem exibidos.
+             */
             function displayOrderProducts(productsToDisplay) {
                 orderProductResultsList.innerHTML = '';
                 if (productsToDisplay.length > 0) {
@@ -1668,58 +1743,89 @@
                 }
 
                 const reader = new FileReader();
+                const encoding = csvEncodingSelect.value; // Obtém a codificação selecionada
+
                 reader.onload = (e) => {
                     const csvText = e.target.result;
-                    const lines = csvText.split('\n').filter(line => line.trim() !== ''); // Filtra linhas vazias
+                    console.log('Raw CSV Text:', csvText); // Log o texto completo do arquivo
+                    // Usa uma regex para lidar com diferentes tipos de quebra de linha (\r\n, \n, \r)
+                    const lines = csvText.split(/\r\n|\n|\r/).filter(line => line.trim() !== '');
                     let importedCount = 0;
+                    let failedLines = []; // Para registrar linhas que falharam na importação
 
-                    lines.forEach(line => {
-                        const parts = line.split(',');
-                        if (parts.length === 2) {
-                            const name = parts[0].trim();
-                            const price = parseFloat(parts[1].trim());
+                    lines.forEach((line, index) => {
+                        try {
+                            console.log(`Processing line ${index + 1}:`, line); // Log cada linha
+                            const parts = line.split(',');
+                            console.log(`Parsed parts for line ${index + 1}:`, parts); // Log as partes separadas por vírgula
 
-                            if (name && !isNaN(price) && price > 0) {
-                                // Verifica se o produto já existe pelo nome para evitar duplicações visuais
-                                // Nota: Ainda criamos um novo ID único, então eles são distintos nos dados.
-                                const existingProduct = products.find(p => p.name.toLowerCase() === name.toLowerCase());
-                                if (!existingProduct) {
-                                    const newProduct = {
-                                        id: Date.now().toString() + importedCount, // ID único
-                                        name: name,
-                                        price: price
-                                    };
-                                    products.push(newProduct);
-                                    importedCount++;
+                            if (parts.length === 2) {
+                                let name = parts[0].trim();
+                                // Normaliza o nome logo após a leitura e antes de qualquer comparação ou armazenamento
+                                name = name.normalize('NFC');
+                                // Substitui vírgula por ponto para garantir que parseFloat funcione corretamente
+                                const price = parseFloat(parts[1].trim().replace(',', '.'));
+
+                                if (name && !isNaN(price) && price > 0) {
+                                    // Verifica se o produto já existe pelo nome (case-insensitive e normalizado)
+                                    const existingProduct = products.find(p => p.name.toLowerCase() === name.toLowerCase());
+                                    if (!existingProduct) {
+                                        const newProduct = {
+                                            id: Date.now().toString() + '-' + index + '-' + Math.random().toString(36).substr(2, 9), // ID único mais robusto
+                                            name: name, // O nome já está normalizado
+                                            price: price
+                                        };
+                                        products.push(newProduct);
+                                        importedCount++;
+                                    } else {
+                                        console.warn(`Produto "${name}" já existe e será ignorado na importação.`);
+                                    }
                                 } else {
-                                    console.warn(`Produto "${name}" já existe e será ignorado na importação.`);
+                                    failedLines.push(`Linha ${index + 1}: Dados inválidos (Nome: "${name}", Preço: "${parts[1].trim()}")`);
                                 }
+                            } else {
+                                failedLines.push(`Linha ${index + 1}: Formato incorreto (esperado "Nome,Preço", encontrado "${line}")`);
                             }
+                        } catch (error) {
+                            failedLines.push(`Linha ${index + 1}: Erro de processamento - ${error.message}`);
+                            console.error(`Erro ao processar linha ${index + 1}: ${line}`, error);
                         }
                     });
 
                     localStorage.setItem('comandaProducts', JSON.stringify(products));
                     renderProducts(); // Re-renderiza a lista de produtos
                     csvFileInput.value = ''; // Limpa o input do arquivo
+
+                    let finalMessage = '';
                     if (importedCount > 0) {
-                        showMessage(`${importedCount} produtos importados com sucesso do CSV!`);
+                        finalMessage += `${importedCount} produtos importados com sucesso do CSV!`;
                     } else {
-                        showMessage('Nenhum novo produto válido foi encontrado para importar do CSV.');
+                        finalMessage += 'Nenhum novo produto válido foi encontrado para importar do CSV.';
                     }
+
+                    if (failedLines.length > 0) {
+                        finalMessage += `\n\nProblemas nas seguintes linhas:\n${failedLines.join('\n')}`;
+                    }
+                    showMessage(finalMessage);
                 };
 
                 reader.onerror = () => {
-                    showMessage('Erro ao ler o arquivo CSV.');
+                    showMessage('Erro ao ler o arquivo CSV. Verifique a codificação e o formato.');
                 };
 
-                reader.readAsText(file);
+                // Usa a codificação selecionada para ler o arquivo
+                reader.readAsText(file, encoding);
             });
 
 
             // --- Relatório de Vendas ---
             const salesReportContent = document.getElementById('sales-report-content');
 
-            // Função auxiliar para obter o nome amigável do método de pagamento
+            /**
+             * Função auxiliar para obter o nome amigável do método de pagamento.
+             * @param {string} method - A chave do método de pagamento.
+             * @returns {string} O nome de exibição do método de pagamento.
+             */
             function getPaymentMethodDisplayName(method) {
                 switch (method) {
                     case 'cash': return 'Dinheiro';
@@ -1730,7 +1836,9 @@
                 }
             }
 
-            // Renderiza o relatório de vendas
+            /**
+             * Renderiza o relatório de vendas na seção de relatório.
+             */
             function renderSalesReport() {
                 let salesReport = JSON.parse(localStorage.getItem('comandaSalesReport')) || [];
                 salesReportContent.innerHTML = ''; // Limpa o conteúdo anterior
@@ -1783,6 +1891,10 @@
             }
 
             // --- Lógica de Tema (Claro/Escuro) ---
+            /**
+             * Aplica o tema claro ou escuro ao corpo do documento.
+             * @param {boolean} isDarkMode - `true` para aplicar o modo escuro, `false` para o modo claro.
+             */
             function applyTheme(isDarkMode) {
                 if (isDarkMode) {
                     document.body.classList.add('dark-mode');
